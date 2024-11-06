@@ -1,4 +1,3 @@
-// components/Cards.tsx
 import React from "react";
 import {
   Card,
@@ -7,6 +6,7 @@ import {
   CardMedia,
   Typography,
 } from "@mui/material";
+import * as Speech from "expo-speech";
 
 type CardProps = {
   title: string;
@@ -14,13 +14,22 @@ type CardProps = {
 };
 
 const Cards: React.FC<CardProps> = ({ title, imageUrl }) => {
+  const handleCardClick = () => {
+    Speech.speak(title, {
+      language: "en",
+      pitch: 1,
+      rate: 1,
+    });
+  };
+
   return (
     <Card sx={{ maxWidth: 345, margin: "auto", mt: 13 }}>
-      <CardActionArea>
+      <CardActionArea onClick={handleCardClick}>
+        {" "}
         <CardContent>
           <Typography
             fontFamily={"Nasa21"}
-            variant="h6"
+            variant="h5"
             component="div"
             gutterBottom
           >
