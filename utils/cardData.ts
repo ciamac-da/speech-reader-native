@@ -34,7 +34,7 @@ export const cardData = [
     imageUrl: "/assets/images/tired.jpg",
   },
   {
-    title: "I feel Angry",
+    title: "I'm Angry",
     imageUrl: "/assets/images/angry.jpg",
   },
   {
@@ -50,7 +50,15 @@ export const cardData = [
     imageUrl: "/assets/images/parent.jpg",
   },
   {
+    title: "I wanna go Outside",
+    imageUrl: "/assets/images/outside.jpg",
+  },
+  {
     title: "I wanna go to the Park",
     imageUrl: "/assets/images/park.jpg",
+  },
+  {
+    title: "I wanna go Play with my Friends",
+    imageUrl: "/assets/images/friends.jpg",
   },
 ];
