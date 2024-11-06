@@ -9,14 +9,17 @@ export function Header() {
 }
 const styles = StyleSheet.create({
   header: {
-    height: 70,
     backgroundColor: "#25a815",
     position: "absolute",
     width: "100%",
     top: 0,
     textAlign: "center",
+    zIndex: 1000,
   },
   h1: {
     justifyContent: "center",
+    letterSpacing: 5,
+    color: "#fff",
+    fontSize: 32,
   },
 });
