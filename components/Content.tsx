@@ -1,13 +1,31 @@
+import React from "react";
+import { Grid } from "@mui/material";
 import { cardData } from "@/utils/cardData";
-import { StyleSheet } from "react-native";
 import Cards from "@/components/Cards";
+import { StyleSheet } from "react-native";
 
 export function Content() {
   return (
-    <div>
+    <Grid
+      container
+      spacing={2}
+      sx={{
+        display: "flex",
+        flexWrap: "wrap",
+        justifyContent: "center",
+      }}
+      style={styles.container}
+    >
       {cardData.map((card, index) => (
-        <Cards key={index} title={card.title} imageUrl={card.imageUrl} />
+        <Grid item xs={12} sm={6} md={4} key={index}>
+          <Cards title={card.title} imageUrl={card.imageUrl} />
+        </Grid>
       ))}
-    </div>
+    </Grid>
   );
 }
+const styles = StyleSheet.create({
+  container: {
+    overflow: "scroll",
+  },
+});
