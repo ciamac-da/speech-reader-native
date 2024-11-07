@@ -1,19 +1,15 @@
-import React, { useState } from "react";
+import React from "react";
 import { Grid } from "@mui/material";
 import { cardData } from "@/utils/cardData";
 import Cards from "@/components/Cards";
-import LanguageSpeechCard from "./LanguageSpeechCard";
-import { Dimensions } from "react-native";
 
-export function Content() {
-  const [selectedLanguage, setSelectedLanguage] = useState("en");
+type ContentProps = {
+  selectedLanguage: string;
+};
 
+export function Content({ selectedLanguage }: ContentProps) {
   return (
     <div style={styles.container}>
-      <LanguageSpeechCard
-        selectedLanguage={selectedLanguage}
-        onLanguageChange={setSelectedLanguage}
-      />
       <div style={styles.scrollContainer}>
         <Grid
           container
@@ -38,6 +34,7 @@ export function Content() {
     </div>
   );
 }
+
 const styles = {
   container: {
     display: "flex",

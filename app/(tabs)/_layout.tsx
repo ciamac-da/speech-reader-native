@@ -1,5 +1,5 @@
 import { Tabs } from "expo-router";
-import React from "react";
+import React, { useState } from "react";
 import { StyleSheet, View, Dimensions } from "react-native";
 import { TabBarIcon } from "@/components/navigation/TabBarIcon";
 import { Colors } from "@/constants/Colors";
@@ -8,12 +8,16 @@ import { Header } from "@/components/Header";
 import { Content } from "@/components/Content";
 
 export default function TabLayout() {
-  const colorScheme = useColorScheme();
+  //const colorScheme = useColorScheme();
+  const [selectedLanguage, setSelectedLanguage] = useState("en");
 
   return (
     <View style={styles.container}>
-      <Header />
-      <Content />
+      <Header
+        selectedLanguage={selectedLanguage}
+        onLanguageChange={setSelectedLanguage}
+      />
+      <Content selectedLanguage={selectedLanguage} />
     </View>
   );
 }

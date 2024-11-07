@@ -1,13 +1,12 @@
-// Cards.tsx
-
 import React from "react";
 import {
-  Card,
-  CardActionArea,
-  CardContent,
-  CardMedia,
-  Typography,
-} from "@mui/material";
+  Pressable,
+  Image,
+  Text,
+  View,
+  StyleSheet,
+  Platform,
+} from "react-native";
 import * as Speech from "expo-speech";
 
 type CardProps = {
@@ -22,22 +21,46 @@ const Cards: React.FC<CardProps> = ({ title, imageUrl, language }) => {
   };
 
   return (
-    <Card sx={{ maxWidth: 345, margin: "auto", mt: 13 }}>
-      <CardActionArea onClick={handleSpeak}>
-        <CardContent>
-          <Typography
-            fontFamily={"Nasa21"}
-            variant="h5"
-            component="div"
-            gutterBottom
-          >
-            {title}
-          </Typography>
-        </CardContent>
-        <CardMedia component="img" height="200" image={imageUrl} alt={title} />
-      </CardActionArea>
-    </Card>
+    <View style={styles.card}>
+      <Pressable
+        onPress={handleSpeak}
+        {...(Platform.OS === "web" ? { onClick: handleSpeak } : {})}
+        style={styles.actionArea}
+      >
+        <View style={styles.content}>
+          <Text style={styles.title}>{title}</Text>
+        </View>
+        <Image source={{ uri: imageUrl }} style={styles.image} />
+      </Pressable>
+    </View>
   );
 };
+
+const styles = StyleSheet.create({
+  card: {
+    maxWidth: 345,
+    margin: "auto",
+    marginTop: 13,
+    borderRadius: 8,
+    overflow: "hidden",
+    backgroundColor: "#fff",
+  },
+  actionArea: {
+    alignItems: "center",
+    padding: 16,
+  },
+  content: {
+    marginBottom: 8,
+  },
+  title: {
+    fontFamily: "Nasa21",
+    fontSize: 20,
+    fontWeight: "bold",
+  },
+  image: {
+    width: "100%",
+    height: 200,
+  },
+});
 
 export default Cards;

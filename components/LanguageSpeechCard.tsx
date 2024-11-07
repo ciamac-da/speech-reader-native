@@ -21,8 +21,9 @@ const LanguageSpeechCard: React.FC<LanguageSpeechCardProps> = ({
 }) => {
   return (
     <div style={styles.dropdown}>
-      <Text>Select Language:</Text>
+      <Text style={styles.dropdownText}>Select Language:</Text>
       <Picker
+        style={styles.picker}
         selectedValue={selectedLanguage}
         onValueChange={(itemValue) => onLanguageChange(itemValue)}
       >
@@ -35,8 +36,14 @@ const LanguageSpeechCard: React.FC<LanguageSpeechCardProps> = ({
 };
 const styles = StyleSheet.create({
   dropdown: {
-    zIndex: 10000,
-    position: "absolute",
+    display: "flex",
+    gap: 10,
+  },
+  dropdownText: {
+    color: "#fff",
+  },
+  picker: {
+    borderRadius: 6,
   },
 });
 
