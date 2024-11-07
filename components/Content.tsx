@@ -44,7 +44,8 @@ const styles = {
   scrollContainer: {
     flex: 1,
     overflowY: "scroll" as "scroll",
-    padding: 20,
+    paddingTop: 20,
+    paddingBottom: 150,
   },
 };
 
