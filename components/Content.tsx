@@ -2,6 +2,7 @@ import React from "react";
 import { Grid } from "@mui/material";
 import { cardData } from "@/utils/cardData";
 import Cards from "@/components/Cards";
+import i18n from "@/i18n";
 
 type ContentProps = {
   selectedLanguage: string;
@@ -23,7 +24,7 @@ export function Content({ selectedLanguage }: ContentProps) {
           {cardData.map((card, index) => (
             <Grid item xs={12} sm={6} md={4} key={index}>
               <Cards
-                title={card.title}
+                title={i18n.t(`cards.${card.key}`)}
                 imageUrl={card.imageUrl}
                 language={selectedLanguage}
               />

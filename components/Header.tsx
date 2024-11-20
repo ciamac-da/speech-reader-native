@@ -1,7 +1,9 @@
 import React from "react";
 import { StyleSheet, View, Text } from "react-native";
 import LanguageSpeechCard from "./LanguageSpeechCard";
+import LanguageSelector from "./LanguageSelector";
 import useResponsive from "@/hooks/useResponsive";
+import { useTranslation } from "react-i18next";
 
 type HeaderProps = {
   selectedLanguage: string;
@@ -10,6 +12,7 @@ type HeaderProps = {
 
 export function Header({ selectedLanguage, onLanguageChange }: HeaderProps) {
   const isSmallScreen = useResponsive(768);
+  const { t } = useTranslation();
 
   return (
     <View
@@ -18,10 +21,10 @@ export function Header({ selectedLanguage, onLanguageChange }: HeaderProps) {
         isSmallScreen ? styles.headerMobile : styles.headerDesktop,
       ]}
     >
-      <Text style={styles.h1}>Speech Reader</Text>
+      <Text style={styles.h1}>{t("title")}</Text>
       <View style={[isSmallScreen ? styles.langMobile : styles.langDesktop]}>
-        <LanguageSpeechCard
-          selectedLanguage={selectedLanguage}
+        <LanguageSelector
+          currentLanguage={selectedLanguage}
           onLanguageChange={onLanguageChange}
         />
       </View>
@@ -64,6 +67,12 @@ const styles = StyleSheet.create({
     position: "absolute",
     right: 50,
     fontSize: 32,
+  },
+  dropdownContainer: {
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
   },
 });
 
