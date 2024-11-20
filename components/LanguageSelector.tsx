@@ -17,7 +17,7 @@ const languageData = [
   { label: "Portuguese", value: "pt", countryCode: "PT" },
   { label: "Dutch", value: "nl", countryCode: "NL" },
   { label: "Українська", value: "uk", countryCode: "UA" },
-  { label: "Kurdî (Kurmanji)", value: "ku", countryCode: "IQ" },
+  { label: "Kurdî (Kurmanji)", value: "ku", countryCode: "KU" },
   { label: "العربية", value: "ar", countryCode: "SA" },
   { label: "Svenska", value: "sv", countryCode: "SE" },
   { label: "Norsk", value: "no", countryCode: "NO" },
@@ -47,6 +47,16 @@ const LanguageSelector: React.FC<LanguageSelectorProps> = ({
           (language) =>
             language.value === currentLanguage && (
               <View style={styles.flagContainer} key={language.value}>
+                {language.countryCode === "KU" ? (
+                  <img
+                    style={styles.missingFlag}
+                    src="/assets/images/kurdistan.png"
+                    width={30}
+                    alt=""
+                  />
+                ) : (
+                  ""
+                )}
                 <CountryFlag isoCode={language.countryCode} size={20} />
               </View>
             )
@@ -97,6 +107,9 @@ const styles = StyleSheet.create({
         height: 50,
       },
     }),
+  },
+  missingFlag: {
+    marginRight: 30,
   },
 });
 
