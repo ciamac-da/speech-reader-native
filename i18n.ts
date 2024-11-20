@@ -420,6 +420,28 @@ const resources = {
       },
     },
   },
+  pt: {
+    translation: {
+      title: "Leitor de Voz",
+      select_language: "Selecionar Idioma",
+      cards: {
+        love: "Eu te amo",
+        thirsty: "Estou com sede",
+        hungry: "Estou com fome",
+        happy: "Estou feliz",
+        sad: "Estou triste",
+        scared: "Estou com medo",
+        hurt: "Estou machucado",
+        tired: "Estou cansado",
+        angry: "Estou com raiva",
+        home: "Eu quero ir para casa",
+        school: "Eu quero ir para a escola",
+        outside: "Eu quero sair",
+        park: "Eu quero ir ao parque",
+        friends: "Eu quero brincar com meus amigos",
+      },
+    },
+  },
 };
 
 i18n.use(initReactI18next).init({

@@ -1,12 +1,35 @@
 import React from "react";
-import { StyleSheet, View, Platform } from "react-native";
+import { StyleSheet, View, Text, Platform } from "react-native";
 import { Picker } from "@react-native-picker/picker";
+import CountryFlag from "react-native-country-flag";
 import i18n from "@/i18n";
 
 type LanguageSelectorProps = {
   currentLanguage: string;
   onLanguageChange: (language: string) => void;
 };
+
+const languageData = [
+  { label: "English", value: "en", countryCode: "GB" },
+  { label: "Deutsch", value: "de", countryCode: "DE" },
+  { label: "Español", value: "es", countryCode: "ES" },
+  { label: "Italiano", value: "it", countryCode: "IT" },
+  { label: "Portuguese", value: "pt", countryCode: "PT" },
+  { label: "Dutch", value: "nl", countryCode: "NL" },
+  { label: "Українська", value: "uk", countryCode: "UA" },
+  { label: "Kurdî (Kurmanji)", value: "ku", countryCode: "IQ" },
+  { label: "العربية", value: "ar", countryCode: "SA" },
+  { label: "Svenska", value: "sv", countryCode: "SE" },
+  { label: "Norsk", value: "no", countryCode: "NO" },
+  { label: "Dansk", value: "da", countryCode: "DK" },
+  { label: "Română", value: "ro", countryCode: "RO" },
+  { label: "Ελληνικά", value: "el", countryCode: "GR" },
+  { label: "हिन्दी", value: "hi", countryCode: "IN" },
+  { label: "中文", value: "zh", countryCode: "CN" },
+  { label: "日本語", value: "ja", countryCode: "JP" },
+  { label: "한국어", value: "ko", countryCode: "KR" },
+  { label: "Türkçe", value: "tr", countryCode: "TR" },
+];
 
 const LanguageSelector: React.FC<LanguageSelectorProps> = ({
   currentLanguage,
@@ -18,39 +41,52 @@ const LanguageSelector: React.FC<LanguageSelectorProps> = ({
   };
 
   return (
-    <View style={styles.dropdownContainer}>
+    <View style={styles.container}>
+      <View style={styles.selectedLanguageContainer}>
+        {languageData.map(
+          (language) =>
+            language.value === currentLanguage && (
+              <View style={styles.flagContainer} key={language.value}>
+                <CountryFlag isoCode={language.countryCode} size={20} />
+              </View>
+            )
+        )}
+      </View>
+
       <Picker
         selectedValue={currentLanguage}
         onValueChange={handleLanguageChange}
         style={styles.dropdown}
       >
-        <Picker.Item label="English" value="en" />
-        <Picker.Item label="Deutsch" value="de" />
-        <Picker.Item label="Español" value="es" />
-        <Picker.Item label="Italiano" value="it" />
-        <Picker.Item label="Dutch" value="nl" />
-        <Picker.Item label="Українська" value="uk" />
-        <Picker.Item label="Kurdî (Kurmanji)" value="ku" />
-        <Picker.Item label="العربية" value="ar" />
-        <Picker.Item label="Svenska" value="sv" />
-        <Picker.Item label="Norsk" value="no" />
-        <Picker.Item label="Dansk" value="da" />
-        <Picker.Item label="Română" value="ro" />
-        <Picker.Item label="Ελληνικά" value="el" />
-        <Picker.Item label="हिन्दी" value="hi" />
-        <Picker.Item label="中文" value="zh" />
-        <Picker.Item label="日本語" value="ja" />
-        <Picker.Item label="한국어" value="ko" />
-        <Picker.Item label="Türkçe" value="tr" />
+        {languageData.map((language) => (
+          <Picker.Item
+            key={language.value}
+            label={language.label}
+            value={language.value}
+          />
+        ))}
       </Picker>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  dropdownContainer: {
+  container: {
     marginTop: 10,
-    width: 150,
+    width: 200,
+  },
+  selectedLanguageContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginBottom: 10,
+  },
+  flagContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  languageText: {
+    marginLeft: 10,
+    fontSize: 16,
   },
   dropdown: {
     ...Platform.select({
