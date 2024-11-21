@@ -7,7 +7,7 @@ import { useColorScheme } from "@/hooks/useColorScheme";
 import { Header } from "@/components/Header";
 import { Content } from "@/components/Content";
 import i18n from "@/i18n";
-
+import { ThemeProvider } from "@/utils/ThemeContext";
 export default function TabLayout() {
   //const colorScheme = useColorScheme();
   const [selectedLanguage, setSelectedLanguage] = useState("en");
@@ -17,13 +17,15 @@ export default function TabLayout() {
   }, [selectedLanguage]);
 
   return (
-    <View style={styles.container}>
-      <Header
-        selectedLanguage={selectedLanguage}
-        onLanguageChange={setSelectedLanguage}
-      />
-      <Content selectedLanguage={selectedLanguage} />
-    </View>
+    <ThemeProvider>
+      <View style={styles.container}>
+        <Header
+          selectedLanguage={selectedLanguage}
+          onLanguageChange={setSelectedLanguage}
+        />
+        <Content selectedLanguage={selectedLanguage} />
+      </View>
+    </ThemeProvider>
   );
 }
 

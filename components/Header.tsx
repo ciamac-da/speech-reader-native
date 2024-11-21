@@ -1,7 +1,8 @@
 import React from "react";
-import { StyleSheet, View, Text } from "react-native";
-import LanguageSpeechCard from "./LanguageSpeechCard";
-import LanguageSelector from "./LanguageSelector";
+import { StyleSheet, View, Text, Button } from "react-native";
+import { useTheme } from "@/utils/ThemeContext";
+import LanguageSelector from "@/components/LanguageSelector";
+import { Colors } from "@/constants/Colors";
 import useResponsive from "@/hooks/useResponsive";
 import { useTranslation } from "react-i18next";
 
@@ -13,28 +14,37 @@ type HeaderProps = {
 export function Header({ selectedLanguage, onLanguageChange }: HeaderProps) {
   const isSmallScreen = useResponsive(768);
   const { t } = useTranslation();
+  const { theme, toggleTheme } = useTheme();
+  const currentColors = Colors[theme as "light" | "dark"];
 
   return (
     <View
       style={[
         styles.header,
-        isSmallScreen ? styles.headerMobile : styles.headerDesktop,
+        {
+          backgroundColor: currentColors.background,
+        },
       ]}
     >
-      <Text style={styles.h1}>{t("title")}</Text>
+      <Text style={[styles.h1, { color: currentColors.text }]}>
+        {t("title")}
+      </Text>
       <View style={[isSmallScreen ? styles.langMobile : styles.langDesktop]}>
         <LanguageSelector
           currentLanguage={selectedLanguage}
           onLanguageChange={onLanguageChange}
         />
       </View>
+      <Button
+        title={theme === "light" ? "Dark Mode" : "Light Mode"}
+        onPress={toggleTheme}
+      />
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   header: {
-    backgroundColor: "#25a815",
     width: "100%",
     top: 0,
     textAlign: "center",
