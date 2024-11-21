@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import {
+  Animated,
   Pressable,
   Image,
   Text,
@@ -7,6 +8,8 @@ import {
   StyleSheet,
   Platform,
 } from "react-native";
+import { useTheme } from "@/utils/ThemeContext";
+import { Colors } from "@/constants/Colors";
 import * as Speech from "expo-speech";
 
 type CardProps = {
@@ -16,23 +19,62 @@ type CardProps = {
 };
 
 const Cards: React.FC<CardProps> = ({ title, imageUrl, language }) => {
+  const { theme } = useTheme();
+  const currentColors = Colors[theme as "light" | "dark"];
+  const animatedValue = useRef(new Animated.Value(0)).current;
+
+  useEffect(() => {
+    // Animates the background color transition
+    Animated.timing(animatedValue, {
+      toValue: theme === "light" ? 0 : 1,
+      duration: 300,
+      useNativeDriver: false,
+    }).start();
+  }, [theme, animatedValue]);
+
+  const interpolatedBackgroundColor = animatedValue.interpolate({
+    inputRange: [0, 1],
+    outputRange: [Colors.light.cardBackground, Colors.dark.cardBackground],
+  });
+
   const handleSpeak = () => {
     Speech.speak(title, { language });
   };
 
   return (
-    <View style={styles.card}>
+    <Animated.View
+      style={[
+        styles.card,
+        {
+          backgroundColor: interpolatedBackgroundColor, // Animated background
+        },
+      ]}
+    >
       <Pressable
         onPress={handleSpeak}
         {...(Platform.OS === "web" ? { onClick: handleSpeak } : {})}
-        style={styles.actionArea}
+        style={[
+          styles.actionArea,
+          {
+            backgroundColor: currentColors.background,
+          },
+        ]}
       >
         <View style={styles.content}>
-          <Text style={styles.title}>{title}</Text>
+          <Text
+            style={[
+              styles.title,
+              {
+                color: currentColors.text,
+              },
+            ]}
+          >
+            {title}
+          </Text>
         </View>
         <Image source={{ uri: imageUrl }} style={styles.image} />
       </Pressable>
-    </View>
+    </Animated.View>
   );
 };
 
@@ -43,7 +85,9 @@ const styles = StyleSheet.create({
     marginTop: 13,
     borderRadius: 8,
     overflow: "hidden",
-    backgroundColor: "#fff",
+    ...(Platform.OS === "web"
+      ? { transition: "background-color 0.3s ease" }
+      : {}),
   },
   actionArea: {
     alignItems: "center",
