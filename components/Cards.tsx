@@ -24,7 +24,6 @@ const Cards: React.FC<CardProps> = ({ title, imageUrl, language }) => {
   const animatedValue = useRef(new Animated.Value(0)).current;
 
   useEffect(() => {
-    // Animates the background color transition
     Animated.timing(animatedValue, {
       toValue: theme === "light" ? 0 : 1,
       duration: 300,
@@ -34,7 +33,7 @@ const Cards: React.FC<CardProps> = ({ title, imageUrl, language }) => {
 
   const interpolatedBackgroundColor = animatedValue.interpolate({
     inputRange: [0, 1],
-    outputRange: [Colors.light.cardBackground, Colors.dark.cardBackground],
+    outputRange: [Colors.light.background, Colors.dark.background],
   });
 
   const handleSpeak = () => {
@@ -46,7 +45,7 @@ const Cards: React.FC<CardProps> = ({ title, imageUrl, language }) => {
       style={[
         styles.card,
         {
-          backgroundColor: interpolatedBackgroundColor, // Animated background
+          backgroundColor: interpolatedBackgroundColor,
         },
       ]}
     >

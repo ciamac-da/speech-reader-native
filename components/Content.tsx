@@ -1,6 +1,8 @@
 import React from "react";
 import { Grid } from "@mui/material";
 import { cardData } from "@/utils/cardData";
+import { useTheme } from "@/utils/ThemeContext";
+import { Colors } from "@/constants/Colors";
 import Cards from "@/components/Cards";
 import i18n from "@/i18n";
 
@@ -9,8 +11,16 @@ type ContentProps = {
 };
 
 export function Content({ selectedLanguage }: ContentProps) {
+  const { theme } = useTheme();
+  const currentColors = Colors[theme as "light" | "dark"];
+
   return (
-    <div style={styles.container}>
+    <div
+      style={{
+        ...styles.container,
+        backgroundColor: currentColors.pageBackgeround,
+      }}
+    >
       <div style={styles.scrollContainer}>
         <Grid
           container
