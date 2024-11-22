@@ -51,7 +51,7 @@ const LanguageSelector: React.FC<LanguageSelectorProps> = ({
                   <img
                     style={styles.missingFlag}
                     src="/assets/images/kurdistan.png"
-                    width={30}
+                    width={28}
                     alt=""
                   />
                 ) : (

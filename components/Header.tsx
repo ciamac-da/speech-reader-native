@@ -1,6 +1,7 @@
 import React from "react";
-import { StyleSheet, View, Text, Button } from "react-native";
+import { StyleSheet, View, Text, TouchableOpacity, Image } from "react-native";
 import { useTheme } from "@/utils/ThemeContext";
+import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import LanguageSelector from "@/components/LanguageSelector";
 import { Colors } from "@/constants/Colors";
 import useResponsive from "@/hooks/useResponsive";
@@ -16,16 +17,10 @@ export function Header({ selectedLanguage, onLanguageChange }: HeaderProps) {
   const { t } = useTranslation();
   const { theme, toggleTheme } = useTheme();
   const currentColors = Colors[theme as "light" | "dark"];
+  console.info("object", theme);
 
   return (
-    <View
-      style={[
-        styles.header,
-        {
-          backgroundColor: currentColors.background,
-        },
-      ]}
-    >
+    <View style={styles.header}>
       <Text style={[styles.h1, { color: currentColors.text }]}>
         {t("title")}
       </Text>
@@ -34,11 +29,14 @@ export function Header({ selectedLanguage, onLanguageChange }: HeaderProps) {
           currentLanguage={selectedLanguage}
           onLanguageChange={onLanguageChange}
         />
+        <TouchableOpacity onPress={toggleTheme} style={styles.iconButton}>
+          {theme === "light" ? (
+            <MaterialIcons name="dark-mode" size={28} color="black" />
+          ) : (
+            <MaterialIcons name="light-mode" size={28} color="gold" />
+          )}
+        </TouchableOpacity>
       </View>
-      <Button
-        title={theme === "light" ? "Dark Mode" : "Light Mode"}
-        onPress={toggleTheme}
-      />
     </View>
   );
 }
@@ -51,7 +49,6 @@ const styles = StyleSheet.create({
     zIndex: 1000,
     display: "flex",
     alignItems: "center",
-    paddingVertical: 20,
   },
   headerMobile: {
     flexDirection: "column",
@@ -64,10 +61,13 @@ const styles = StyleSheet.create({
     letterSpacing: 5,
     color: "#fff",
     fontSize: 32,
+    fontWeight: "700",
     fontFamily: "Nasa21",
     padding: 20,
   },
   langMobile: {
+    display: "flex",
+    flexDirection: "row",
     marginTop: 10,
     position: "static",
     alignItems: "center",
@@ -78,11 +78,12 @@ const styles = StyleSheet.create({
     right: 50,
     fontSize: 32,
   },
-  dropdownContainer: {
-    display: "flex",
-    flexDirection: "row",
+  iconButton: {
+    position: "absolute",
+    right: -10,
+    padding: 10,
     alignItems: "center",
-    justifyContent: "center",
+    justifyContent: "flex-end",
   },
 });
 
