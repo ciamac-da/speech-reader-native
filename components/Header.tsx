@@ -29,7 +29,12 @@ export function Header({ selectedLanguage, onLanguageChange }: HeaderProps) {
           currentLanguage={selectedLanguage}
           onLanguageChange={onLanguageChange}
         />
-        <TouchableOpacity onPress={toggleTheme} style={styles.iconButton}>
+        <TouchableOpacity
+          onPress={toggleTheme}
+          style={[
+            isSmallScreen ? styles.iconButtonMobile : styles.iconButtonDesktop,
+          ]}
+        >
           {theme === "light" ? (
             <MaterialIcons name="dark-mode" size={28} color="black" />
           ) : (
@@ -78,7 +83,15 @@ const styles = StyleSheet.create({
     right: 50,
     fontSize: 32,
   },
-  iconButton: {
+  iconButtonMobile: {
+    position: "absolute",
+    right: "25%",
+    paddingRight: 10,
+    paddingBottom: 10,
+    alignItems: "center",
+    justifyContent: "flex-end",
+  },
+  iconButtonDesktop: {
     position: "absolute",
     right: -10,
     padding: 10,
